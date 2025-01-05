@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-sans), sans-serif;
+  
+}
+
+html {
+  @apply antialiased;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+@layer components {
+  *,
+  ::before,
+  ::after {
+    --tw-ring-color: theme("colors.foreground/0.25");
+    @apply border-neutral-300;
+  }
+}
+
+  @layer base {
+    :root {
+      --background: 0 83% 98%;
+      --foreground: 0 67% 8%;
+      --card: 0 83% 98%;
+      --card-foreground: 0 67% 8%;
+      --popover: 0 83% 98%;
+      --popover-foreground: 0 67% 8%;
+      --primary: 0 89% 58%;
+      --primary-foreground: 0 83% 98%;
+      --secondary: 198 44% 89%;
+      --secondary-foreground: 0 83% 98%;
+      --muted: 198 24% 89%;
+      --muted-foreground: 0 47% 8%;
+      --accent: 218 28% 28%;
+      --accent-foreground: 0 83% 98%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 83% 98%;
+      --border: 198 14% 89%;
+      --input: 198 14% 89%;
+      --ring: 0 89% 58%;
+      --radius: 0.75rem;
+    }
+  
+    .dark {
+      --background: 0 67% 8%;
+      --foreground: 0 83% 98%;
+      --card: 0 67% 8%;
+      --card-foreground: 0 83% 98%;
+      --popover: 0 67% 8%;
+      --popover-foreground: 0 83% 98%;
+      --primary: 0 89% 58%;
+      --primary-foreground: 0 83% 98%;
+      --secondary: 198 44% 89%;
+      --secondary-foreground: 0 83% 98%;
+      --muted: 198 24% 89%;
+      --muted-foreground: 0 47% 8%;
+      --accent: 218 28% 28%;
+      --accent-foreground: 0 83% 98%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 83% 98%;
+      --border: 198 14% 89%;
+      --input: 198 14% 89%;
+      --ring: 0 89% 58%;
+    }
+  }
+  
+
+@layer base {
+  * {
+    @apply border-sidebar-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+.background-radial-gradient {
+
+  background:radial-gradient(at 0% 00%, #f33535b3 0px, transparent 40%), radial-gradient(at 99.67672413793103% 70%, #f335357a 0px, transparent 30%), #33425b00;
+  transition: ease-in-out 0.5s;
+}
+
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
