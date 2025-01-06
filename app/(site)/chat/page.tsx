@@ -11,7 +11,7 @@ import { Circle, Send } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
-import { useUser } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
 import Messages from "@/components/Messages";
 
 interface Message {
@@ -27,12 +27,12 @@ const initialPrompts = [
     value: "Generate a Social Media report from my data.",
   },
   {
-    name: "Generate Insights",
-    value: "Generate insights from my data.",
+    name: "Compare Videos & Posts",
+    value: "Compare my posts and videos from the last 30 days.",
   },
   {
-    name: "Generate Post Recommendations",
-    value: "Generate post recommendations from my data.",
+    name: "Post on 4th december",
+    value: "What did I posted on 4th december?",
   },
 ];
 
@@ -44,6 +44,7 @@ export default function Home() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
+  const { openSignIn } = useClerk();
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -73,8 +74,18 @@ export default function Home() {
 
   if (!user) {
     return (
-      <div className="w-full h-full flex-1 flex items-center justify-center">
-        <div className="w-10 h-10 aspect-square border-r-4 border-t-4 border-primary rounded-full animate-spin"></div>
+      <div className="w-full h-full flex-1 flex flex-col items-center justify-center">
+        <CardTitle className="text-5xl bg-clip-text text-transparent bg-gradient-to-r from-black via-primary to-primary">
+          Sign in to continue
+        </CardTitle>
+        <Button
+          onClick={() => openSignIn()}
+          variant={"default"}
+          className="mt-4"
+          size={"lg"}
+        >
+          Sign in
+        </Button>
       </div>
     );
   }
