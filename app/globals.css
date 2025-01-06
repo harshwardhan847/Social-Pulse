@@ -82,10 +82,28 @@ body {
 }
 .background-radial-gradient {
 
-  background:radial-gradient(at 0% 00%, #f33535b3 0px, transparent 40%), radial-gradient(at 99.67672413793103% 70%, #f335357a 0px, transparent 30%), #33425b00;
-  transition: ease-in-out 0.5s;
+  background:radial-gradient(at 0% 00%, #f33535b3 0px, transparent 30%), radial-gradient(at 99.67672413793103% 90%, #f335357a 0px, transparent 50%), #ffc9c900;
+  /* transition: ease-in-out .5s; */
+  
+}
+.animate-gradient {
+  background-size: 300%;
+  -webkit-animation: animatedgradient 6s ease infinite alternate;
+  -moz-animation: animatedgradient 6s ease infinite alternate;
+  animation: animatedgradient 6s ease infinite alternate;
 }
 
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 
 

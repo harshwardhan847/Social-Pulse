@@ -1,5 +1,11 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  memo,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -16,13 +22,13 @@ export type TChartData = {
   trend?: "up" | "down";
   title?: string;
 };
-const AIResponseRenderer = ({
+const AIResponseRenderer = memo(function AIResponseRenderer({
   message,
   setPrompts,
 }: {
   message: string;
   setPrompts?: Dispatch<SetStateAction<{ name: string; value: string }[]>>;
-}) => {
+}) {
   const [isClient, setIsClient] = useState(false);
   const extractJSON = (message: string) => {
     const regex = /```json\n([\s\S]*?)\n```/; // Match everything between ```json and ```
@@ -100,6 +106,6 @@ const AIResponseRenderer = ({
       )}
     </div>
   );
-};
+});
 
 export default AIResponseRenderer;

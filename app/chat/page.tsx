@@ -7,12 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { BotIcon, Send, UserIcon } from "lucide-react";
+import { Circle, Send } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import AIResponseRenderer from "@/components/AiResponseRenderer";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@clerk/nextjs";
+import Messages from "@/components/Messages";
 
 interface Message {
   id: number;
@@ -145,57 +145,37 @@ export default function Home() {
           <CardContent className="flex-1">
             <ScrollArea className="pr-4">
               <div className="flex-grow overflow-y-auto mb-4 space-y-4 text-white">
-                {messages?.map((message) => (
+                <Messages setPrompts={setPrompts} messages={messages} />
+                {isTyping && (
                   <motion.div
-                    key={message.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className={`flex ${
-                      message.sender === "user"
-                        ? "justify-end"
-                        : "justify-start"
-                    }`}
+                    className="flex justify-start"
                   >
-                    <div
-                      className={` p-3 rounded-lg ${
-                        message.sender === "user"
-                          ? "bg-transparent max-w-3/4"
-                          : "bg-transparent w-full "
-                      }`}
-                      key={message.id}
-                    >
-                      <div className="flex items-center mb-1 text-black">
-                        {message.sender === "user" ? (
-                          <UserIcon className="w-4 h-4 mr-2" />
-                        ) : (
-                          <BotIcon className="w-4 h-4 mr-2" />
-                        )}
-                        <span className="text-xs text-black">
-                          {new Date(
-                            message?.timestamp ?? Date.now().toString()
-                          )?.toLocaleTimeString()}
-                        </span>
-                      </div>
-                      {message.sender === "ai" ? (
-                        <AIResponseRenderer
-                          setPrompts={setPrompts}
-                          message={message?.text ?? ""}
+                    <div className="bg-gradient-to-tr bg-clip-text text-transparent from-primary to-red flex items-baseline justify-start gap-1 font-bold text-2xl p-3 rounded-lg">
+                      <p>Flow Running</p>
+                      <div className="flex items-end justify-start gap-2">
+                        <Circle
+                          fill="transparent"
+                          size={8}
+                          className="animate-bounce delay-0 text-primary"
                         />
-                      ) : (
-                        <div className="bg-primary p-3 rounded-lg">
-                          {message.text}
-                        </div>
-                      )}
+
+                        <Circle
+                          fill="transparent"
+                          size={8}
+                          className="animate-bounce delay-100 text-primary"
+                        />
+
+                        <Circle
+                          fill="transparent"
+                          size={8}
+                          className="animate-bounce delay-150 text-primary"
+                        />
+                      </div>
                     </div>
                   </motion.div>
-                ))}
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-blue-700 p-3 rounded-lg">
-                      <p>AI is typing...</p>
-                    </div>
-                  </div>
                 )}
               </div>
 
@@ -209,7 +189,12 @@ export default function Home() {
                 : ""
             } `}
           >
-            <div className="md:max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="md:max-w-3xl mx-auto"
+            >
               {messages.length == 0 && (
                 <CardHeader className="self-start -mx-4">
                   <CardTitle className="text-5xl bg-clip-text text-transparent bg-gradient-to-r from-black via-primary to-primary">
@@ -269,7 +254,7 @@ export default function Home() {
                   </div>
                 </div>
               </motion.form>
-            </div>
+            </motion.div>
           </CardFooter>
         </div>
       </div>
