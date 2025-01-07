@@ -1,7 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function MovingBlobs() {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {[...Array(3)].map((_, i) => (

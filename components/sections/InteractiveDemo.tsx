@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { useClerk } from "@clerk/nextjs";
 
 const demoSteps = [
   {
@@ -24,6 +25,7 @@ const demoSteps = [
 export function InteractiveDemo() {
   const [currentStep, setCurrentStep] = useState(0);
   const progress = ((currentStep + 1) / demoSteps.length) * 100;
+  const { openSignIn } = useClerk();
 
   return (
     <section className="py-24 relative overflow-hidden">
@@ -55,20 +57,24 @@ export function InteractiveDemo() {
             </motion.div>
 
             <div className="flex justify-between">
-              <Button
+              {/* <Button
                 variant="outline"
                 onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
                 disabled={currentStep === 0}
               >
                 Previous
-              </Button>
+              </Button> */}
               <Button
-                onClick={() =>
+                onClick={() => {
+                  if (demoSteps.length - 1 === currentStep) {
+                    openSignIn();
+                    return;
+                  }
                   setCurrentStep(
                     Math.min(demoSteps.length - 1, currentStep + 1)
-                  )
-                }
-                disabled={currentStep === demoSteps.length - 1}
+                  );
+                }}
+                disabled={currentStep === demoSteps.length}
               >
                 Next Step
               </Button>

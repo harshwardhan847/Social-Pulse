@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { FadeIn } from '@/components/animations/FadeIn';
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { FadeIn } from "@/components/animations/FadeIn";
 
 const successStories = [
   {
@@ -52,14 +52,16 @@ export function CustomerSuccess() {
                     />
                     <h3 className="text-xl font-bold">{story.company}</h3>
                   </div>
-                  <p className="text-lg mb-6 italic">"{story.quote}"</p>
+                  <p className="text-lg mb-6 italic h-[4ch]">"{story.quote}"</p>
                   <div className="grid grid-cols-3 gap-4">
                     {Object.entries(story.stats).map(([key, value]) => (
                       <div key={key}>
                         <p className="text-sm text-muted-foreground capitalize">
                           {key}
                         </p>
-                        <p className="text-xl font-bold text-primary">{value}</p>
+                        <p className="text-xl font-bold text-primary">
+                          {value}
+                        </p>
                       </div>
                     ))}
                   </div>

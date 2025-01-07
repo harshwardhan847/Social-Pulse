@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
-const MotionButton = motion<ButtonProps>(Button);
+const MotionButton = motion.create(Button);
 
 interface AnimatedButtonProps extends ButtonProps {
   children: React.ReactNode;
@@ -17,6 +17,7 @@ export function AnimatedButton({
   ...props
 }: AnimatedButtonProps) {
   return (
+    //@ts-expect-error Framer Motion button
     <MotionButton
       className={cn("text-lg", className)}
       whileHover={{ scale: 1.05 }}

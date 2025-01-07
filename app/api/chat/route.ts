@@ -1,3 +1,4 @@
+import { instaDataCollection } from "@/datastax";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -64,7 +65,7 @@ You are "Ronnie," a highly intelligent and analytical Social Media Performance A
    - Suggest three concise, relevant questions the user might want to ask next, encouraging deeper exploration of their social media strategy.
 
 ### Response Format:
-Respond naturally and concisely, like a human expert. Only generate detailed reports if explicitly requested(Comprehensive Analysis of Post Performance,Actionable Insights and Recommendations,Growth Strategy & Optimization Tips, use tables if applicable). Maintain clarity and relevance in all interactions.
+Respond naturally and concisely, like a human expert. Only generate detailed reports if explicitly requested of userId ${userId}(Comprehensive Analysis of Post Performance,Actionable Insights and Recommendations,Growth Strategy & Optimization Tips, use tables if applicable). Maintain clarity and relevance in all interactions.
 
 Question:
 {question}
@@ -278,6 +279,41 @@ suggestion://any suggestion based on the chart
         { status: 504 }
       );
     }
+    return NextResponse.json(
+      { error: "An error occurred while processing your request" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET() {
+  //does user has data in db
+  try {
+    const { userId } = await auth();
+    console.log("userId", userId);
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(() => controller.abort(), 160000);
+
+    // await instaDataCollection.deleteMany({});
+
+    const response = await instaDataCollection.findOne({
+      userId: userId,
+    });
+
+    clearTimeout(timeoutId);
+    console.log("has data", response);
+    if (response) {
+      return NextResponse.json(true);
+    }
+    return NextResponse.json({ error: "No data found" }, { status: 404 });
+  } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "An error occurred while processing your request" },
       { status: 500 }

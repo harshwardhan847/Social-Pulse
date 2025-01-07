@@ -6,12 +6,13 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { AnimatedButton } from "@/components/ui/motion-button";
 import { MovingBlobs } from "@/components/background/MovingBlobs";
 import { Footer } from "@/components/layout/Footer";
-import { ParallaxSection } from "@/components/effects/ParallaxSection";
 import { motion } from "framer-motion";
+import { useClerk } from "@clerk/nextjs";
 
 function App() {
+  const { openSignIn } = useClerk();
   return (
-    <div className="min-h-screen bg-background/80 backdrop-blur-3xl">
+    <div className="min-h-screen bg-transparent backdrop-blur-3xl">
       <MovingBlobs />
 
       {/* Header Section */}
@@ -19,9 +20,9 @@ function App() {
         <motion.div
           animate={{
             background: [
-              "linear-gradient(45deg, rgba(255,0,0,0.1), rgba(0,0,255,0.1))",
-              "linear-gradient(45deg, rgba(0,0,255,0.1), rgba(255,255,0,0.1))",
-              "linear-gradient(45deg, rgba(255,255,0,0.1), rgba(255,0,0,0.1))",
+              // "linear-gradient(45deg, rgba(255,0,0,0.1), rgba(0,0,255,0.1))",
+              // "linear-gradient(45deg, rgba(0,0,255,0.1), rgba(255,255,0,0.1))",
+              // "linear-gradient(45deg, rgba(255,255,0,0.1), rgba(255,0,0,0.1))",
             ],
           }}
           transition={{ duration: 10, repeat: Infinity }}
@@ -43,43 +44,37 @@ function App() {
                   strategies for social media success.
                 </p>
                 <div className="flex gap-4">
-                  <AnimatedButton size="lg">Start Free Trial</AnimatedButton>
+                  <AnimatedButton size="lg" onClick={() => openSignIn()}>
+                    Start Free Trial
+                  </AnimatedButton>
                   <AnimatedButton size="lg" variant="outline">
                     Watch Demo
                   </AnimatedButton>
                 </div>
               </motion.div>
-              <ParallaxSection offset={20}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-3xl" />
-                  <img
-                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                    alt="Dashboard Preview"
-                    className="relative rounded-2xl shadow-2xl border"
-                  />
-                </motion.div>
-              </ParallaxSection>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-3xl" />
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                  alt="Dashboard Preview"
+                  className="relative rounded-2xl shadow-2xl border"
+                />
+              </motion.div>
             </div>
           </FadeIn>
         </div>
       </header>
 
-      <ParallaxSection>
-        <CaseStudies />
-      </ParallaxSection>
+      <CaseStudies />
 
-      <ParallaxSection>
-        <CustomerSuccess />
-      </ParallaxSection>
+      <CustomerSuccess />
 
-      <ParallaxSection>
-        <InteractiveDemo />
-      </ParallaxSection>
+      <InteractiveDemo />
 
       <Footer />
     </div>
