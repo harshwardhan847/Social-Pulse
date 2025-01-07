@@ -74,9 +74,11 @@ const UploadData = () => {
           <Label>CSV file</Label>
           <Input
             disabled={loading}
-            onChange={(e) =>
-              e.target?.files?.[0] && setData(e.target?.files?.[0])
-            }
+            onChange={(e) => {
+              if (e.target?.files?.[0]) {
+                setData(e.target?.files?.[0]);
+              }
+            }}
             placeholder="Upload CSV file"
             id="data_file"
             type="file"
