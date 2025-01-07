@@ -191,12 +191,12 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center min-h-screen px-0 w-full">
       <div
-        className={`w-full flex flex-col relative flex-1 ${
+        className={`w-full flex flex-col relative ${
           messages.length !== 0 && "h-full"
         }`}
       >
-        <CardContent className="flex-1">
-          <ScrollArea className="pr-4">
+        <CardContent className="w-full p-0 md:p-6">
+          <ScrollArea className="">
             <div className="flex-grow overflow-y-auto mb-4 space-y-4 text-white">
               <Messages setPrompts={setPrompts} messages={messages} />
               {isTyping && (

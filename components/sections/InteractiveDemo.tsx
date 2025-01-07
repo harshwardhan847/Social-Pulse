@@ -29,11 +29,11 @@ export function InteractiveDemo() {
 
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-tr from-yellow-50 via-blue-50 to-red-50 opacity-50" />
+      <div className="absolute inset-0" />
       <div className="container mx-auto px-4 relative">
         <FadeIn>
           <h2 className="text-4xl font-bold text-center mb-16">
-            Try Ronnie in Action
+            Try Social Pulse in Action
           </h2>
         </FadeIn>
 

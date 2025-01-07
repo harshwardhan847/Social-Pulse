@@ -28,7 +28,7 @@ const successStories = [
 export function CustomerSuccess() {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-bl from-blue-50 via-red-50 to-yellow-50 opacity-50" />
+      <div className="absolute inset-0 " />
       <div className="container mx-auto px-4 relative">
         <FadeIn>
           <h2 className="text-4xl font-bold text-center mb-16">
@@ -52,7 +52,9 @@ export function CustomerSuccess() {
                     />
                     <h3 className="text-xl font-bold">{story.company}</h3>
                   </div>
-                  <p className="text-lg mb-6 italic h-[4ch]">"{story.quote}"</p>
+                  <p className="text-lg mb-6 italic h-[4ch]">
+                    &apos;{story.quote}&apos;
+                  </p>
                   <div className="grid grid-cols-3 gap-4">
                     {Object.entries(story.stats).map(([key, value]) => (
                       <div key={key}>
