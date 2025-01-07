@@ -76,7 +76,6 @@ const AIResponseRenderer = memo(function AIResponseRenderer({
       >
         <ReactMarkdown
           className="min-w-full"
-          //@ts-expect-error - TODO: fix this
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeRaw]}
           remarkRehypeOptions={{ passThrough: ["link"] }}
