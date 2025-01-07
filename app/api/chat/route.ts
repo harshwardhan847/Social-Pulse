@@ -13,7 +13,6 @@ export async function POST(request: Request) {
 
     const controller = new AbortController();
 
-    const timeoutId = setTimeout(() => controller.abort(), 160000); // 1 minute timeout
     const tweaks = {
       "ChatInput-dbLB4": {
         background_color: "",
@@ -270,7 +269,6 @@ suggestion://any suggestion based on the chart
         { status: 500 }
       );
     }
-    clearTimeout(timeoutId);
   } catch (error) {
     console.error("Error:", error);
     if (error instanceof Error && error.name === "AbortError") {
