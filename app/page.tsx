@@ -42,7 +42,7 @@ function App() {
                   transition={{ duration: 0.6 }}
                 >
                   <h1 className="text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Supercharge Your Social Media Insights with Ronnie
+                    Supercharge Your Social Media Insights with Social Pulse
                   </h1>
                   <p className="text-xl text-muted-foreground mb-8">
                     Analyze. Optimize. Grow. Unlock actionable insights and
@@ -76,6 +76,16 @@ function App() {
         </header>
       ) : (
         <>
+          <div className="flex items-center justify-end bg-gradient-to-b from-white/50 via-white/20 to-transparent fixed top-0 left-0 right-0 z-50">
+            <AnimatedButton
+              size="lg"
+              className="border m-4 border-primary text-primary hover:text-white bg-transparent"
+              variant={"default"}
+              onClick={() => openSignIn()}
+            >
+              Sign In
+            </AnimatedButton>
+          </div>
           <ContainerScroll
             titleComponent={
               <motion.div
