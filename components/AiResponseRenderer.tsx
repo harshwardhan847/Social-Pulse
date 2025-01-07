@@ -10,7 +10,6 @@ import React, {
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { PluggableList } from "react-markdown/lib/react-markdown";
 import { MyLineChart } from "@/components/charts/MyLineChart";
 import { MyBarChart } from "./charts/MyBarCharts";
 export type TChartData = {
@@ -77,8 +76,9 @@ const AIResponseRenderer = memo(function AIResponseRenderer({
       >
         <ReactMarkdown
           className="min-w-full"
+          //@ts-expect-error - TODO: fix this
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw] as PluggableList}
+          rehypePlugins={[rehypeRaw]}
           remarkRehypeOptions={{ passThrough: ["link"] }}
         >
           {parsedAIJson?.report}
