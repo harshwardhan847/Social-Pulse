@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Linkedin, Youtube } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export function Footer() {
@@ -80,19 +80,22 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Connect</h4>
               <div className="flex space-x-4">
                 <a
-                  href="#"
+                  href="https://youtu.be/gHG5w1mZ8xU?si=Z5mDX_lWVnfYyqSx"
+                  target="_blank"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  <Twitter className="w-5 h-5" />
+                  <Youtube className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/harshwardhan847"
+                  target="_blank"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <Github className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/harshwardhan847"
+                  target="_blank"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <Linkedin className="w-5 h-5" />

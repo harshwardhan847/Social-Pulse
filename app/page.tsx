@@ -11,6 +11,7 @@ import { useClerk } from "@clerk/nextjs";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
+import Link from "next/link";
 
 function App() {
   const { openSignIn } = useClerk();
@@ -41,7 +42,7 @@ function App() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <h1 className="text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  <h1 className=" text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                     Supercharge Your Social Media Insights with Social Pulse
                   </h1>
                   <p className="text-xl text-muted-foreground mb-8">
@@ -52,8 +53,15 @@ function App() {
                     <AnimatedButton size="lg" onClick={() => openSignIn()}>
                       Start Free Trial
                     </AnimatedButton>
-                    <AnimatedButton size="lg" variant="outline">
-                      Watch Demo
+                    <AnimatedButton size="lg" variant="outline" asChild>
+                      <Link
+                        href={
+                          "https://youtu.be/gHG5w1mZ8xU?si=Ngg3AHWRzrJtvIbO"
+                        }
+                        target="_blank"
+                      >
+                        Watch Demo
+                      </Link>
                     </AnimatedButton>
                   </div>
                 </motion.div>
@@ -129,8 +137,14 @@ function App() {
               size="lg"
               className="text-4xl py-8"
               variant="outline"
+              asChild
             >
-              Watch Demo
+              <Link
+                href={"https://youtu.be/gHG5w1mZ8xU?si=Ngg3AHWRzrJtvIbO"}
+                target="_blank"
+              >
+                Watch Demo
+              </Link>
             </AnimatedButton>
           </div>
         </>

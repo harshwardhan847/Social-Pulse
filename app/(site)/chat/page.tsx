@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Circle, Send } from "lucide-react";
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Textarea } from "@/components/ui/textarea";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { SignedIn, useClerk, UserButton, useUser } from "@clerk/nextjs";
 import Messages from "@/components/Messages";
 // import UploadData from "@/components/UploadData";
 
@@ -38,14 +38,14 @@ const initialPrompts = [
 ];
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [prompts, setPrompts] = useState<{ name: string; value: string }[]>([]);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [hasData, setHasData] = useState(false);
+  // const [hasData, setHasData] = useState(false);
   const { user } = useUser();
   const { openSignIn } = useClerk();
 
@@ -55,41 +55,41 @@ export default function Home() {
     }, 200);
   };
 
-  const userHasUploadedData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/chat", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        setHasData(false);
-      }
-      if (response.ok) {
-        setHasData(true);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  // const userHasUploadedData = useCallback(async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await fetch("/api/chat", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (!response.ok) {
+  //       setHasData(false);
+  //     }
+  //     if (response.ok) {
+  //       setHasData(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    const storedMessages = localStorage.getItem("messages");
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
-    }
-    // userHasUploadedData();
-  }, [userHasUploadedData]);
+  // useEffect(() => {
+  //   const storedMessages = localStorage.getItem("messages");
+  //   if (storedMessages) {
+  //     setMessages(JSON.parse(storedMessages));
+  //   }
+  //   // userHasUploadedData();
+  // }, [userHasUploadedData]);
 
   useEffect(() => {
     scrollToBottom();
-    if (messages.length > 0) {
-      localStorage.setItem("messages", JSON.stringify(messages));
-    }
+    // if (messages.length > 0) {
+    //   localStorage.setItem("messages", JSON.stringify(messages));
+    // }
     if (messages.length === 0) {
       setPrompts(initialPrompts);
     }
@@ -98,13 +98,13 @@ export default function Home() {
     scrollToBottom();
   }, [user]);
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full min-h-screen flex-1 flex items-center justify-center">
-        <div className="w-10 h-10 aspect-square border-r-4 border-t-4 border-primary rounded-full animate-spin" />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full h-full min-h-screen flex-1 flex items-center justify-center">
+  //       <div className="w-10 h-10 aspect-square border-r-4 border-t-4 border-primary rounded-full animate-spin" />
+  //     </div>
+  //   );
+  // }
 
   if (!user) {
     return (
@@ -179,7 +179,7 @@ export default function Home() {
       setIsTyping(false);
     }
   };
-  console.log(hasData);
+  // console.log(hasData);
   //upload data by user
   // if (!hasData) {
   //   return (
@@ -190,6 +190,11 @@ export default function Home() {
   // }
   return (
     <div className="flex items-center justify-center min-h-screen px-0 w-full">
+      <div className="fixed top-2 left-2 md:hidden z-50">
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
       <div
         className={`w-full flex flex-col relative flex-1 ${
           messages.length !== 0 && "h-full "
@@ -246,7 +251,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="md:max-w-3xl mx-auto"
+            className="md:max-w-3xl mx-auto w-full"
           >
             {messages.length == 0 && (
               <CardHeader className="self-start -mx-4">
@@ -267,18 +272,19 @@ export default function Home() {
               }}
               className="flex gap-4 flex-wrap w-full"
             >
-              {prompts?.map((prompt) => (
-                <Button
-                  key={prompt?.name}
-                  variant={"outline"}
-                  onClick={() => {
-                    setInputMessage(prompt?.value);
-                  }}
-                  className="flex-shrink-0 w-min rounded-full outline-primary border-primary hover:bg-white hover:text-foreground bg-white/90 hover:shadow-[0px_0px_8px_0px_rgba(255,_44,_107,_0.77)] shadow-sm transition-shadow ease-in-out duration-300"
-                >
-                  {prompt?.name}
-                </Button>
-              ))}
+              {!isTyping &&
+                prompts?.map((prompt) => (
+                  <Button
+                    key={prompt?.name}
+                    variant={"outline"}
+                    onClick={() => {
+                      setInputMessage(prompt?.value);
+                    }}
+                    className="flex-shrink-0 w-min rounded-full outline-primary border-primary hover:bg-white hover:text-foreground bg-white/90 hover:shadow-[0px_0px_8px_0px_rgba(255,_44,_107,_0.77)] shadow-sm transition-shadow ease-in-out duration-300"
+                  >
+                    {prompt?.name}
+                  </Button>
+                ))}
               <div
                 onClick={() => inputRef.current?.focus()}
                 className={`flex w-full bg-white/90 shadow-sm rounded-md border px-3 py-2 text-sm ring-offset-background placeholder:text-neutral-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus:ring-2 ${
@@ -293,7 +299,7 @@ export default function Home() {
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                   placeholder="Type your message here..."
-                  className="border-0 ring-0 resize-none min-h-10 h-10 scroll-smooth shadow-none focus:ring-0 focus-within:ring-0 focus-visible:ring-0 focus-within:border-0 focus:border-0 focus-within:ring-offset-0 focus-within:ring-transparent focus:ring-transparent rounded-none focus-visible:ring-transparent"
+                  className="border-0 ring-0 resize-none min-h-10 h-10 scroll-smooth shadow-none w-full focus:ring-0 focus-within:ring-0 focus-visible:ring-0 focus-within:border-0 focus:border-0 focus-within:ring-offset-0 focus-within:ring-transparent focus:ring-transparent rounded-none focus-visible:ring-transparent"
                 />
                 <div className="flex items-center justify-end">
                   <Button
