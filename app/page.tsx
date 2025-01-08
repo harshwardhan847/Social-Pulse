@@ -111,7 +111,7 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-3xl" />
               <Image
                 fill
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                src="/home.png"
                 alt="Dashboard Preview"
                 className="relative rounded-2xl shadow-2xl border object-cover"
               />
